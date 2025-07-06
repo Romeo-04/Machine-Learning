@@ -1,16 +1,24 @@
 import numpy as np
 import pandas as pd 
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
 
 test = pd.read_csv("test.csv")
 
-# Create X from the radio column's values
 X = test["x"].values
-
-# Create y from the sales column's values
 y = test["y"].values
 
-# Reshape X
 X = X.reshape(-1,1)
 
-# Check the shape of the features and targets
-print(X.shape,y.shape)
+reg = LinearRegression()
+reg.fit(X,y)
+
+predictions = reg.predict(X)
+
+plt.scatter(X,y,color = "green")
+plt.plot(X,predictions,color = "red")
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.title("Sample Linear Regression")
+
+plt.show()
